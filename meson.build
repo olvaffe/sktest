@@ -37,8 +37,7 @@ dep_libskia = cpp.find_library(
 )
 dep_skia = declare_dependency(
   compile_args: ['-L' + skia_path / 'out', '-fno-rtti',
-                 '-DSK_DEBUG', '-DSK_GANESH', '-DSK_GL', '-DSK_ASSUME_GL_ES=1',
-                 '-DSK_VULKAN'],
+                 '-DSK_DEBUG', '-DSK_GANESH', '-DSK_GL', '-DSK_VULKAN'],
   dependencies: dep_libskia,
   include_directories: [skia_path],
 )

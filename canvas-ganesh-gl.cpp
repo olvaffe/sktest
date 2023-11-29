@@ -54,7 +54,7 @@ canvas_ganesh_gl_test_draw(struct canvas_ganesh_gl_test *test)
     paint.setAntiAlias(true);
     canvas->drawCircle(test->width / 2, test->height / 2, 30, paint);
 
-    test->ctx->flushAndSubmit(test->surf);
+    test->ctx->flushAndSubmit(test->surf.get());
 
     sk_dump_surface(sk, test->surf, "rt.png");
 }

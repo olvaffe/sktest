@@ -13,6 +13,8 @@
 #include "include/encode/SkPngEncoder.h"
 #include "include/gpu/GrDirectContext.h"
 #include "include/gpu/ganesh/SkSurfaceGanesh.h"
+#include "include/gpu/ganesh/gl/GrGLDirectContext.h"
+#include "include/gpu/ganesh/vk/GrVkDirectContext.h"
 
 #include <assert.h>
 #include <fcntl.h>
@@ -103,7 +105,7 @@ static inline sk_sp<GrDirectContext>
 sk_create_context_ganesh_gl(struct sk *sk)
 {
     /* use the default GrGLInterface and GrContextOptions */
-    sk_sp<GrDirectContext> ctx = GrDirectContext::MakeGL();
+    sk_sp<GrDirectContext> ctx = GrDirectContexts::MakeGL();
     if (!ctx)
         sk_die("failed to create ganesh gl context");
     return ctx;
@@ -113,7 +115,7 @@ static inline sk_sp<GrDirectContext>
 sk_create_context_ganesh_vk(struct sk *sk, const GrVkBackendContext &backend)
 {
     /* use the default GrContextOptions */
-    sk_sp<GrDirectContext> ctx = GrDirectContext::MakeVulkan(backend);
+    sk_sp<GrDirectContext> ctx = GrDirectContexts::MakeVulkan(backend);
     if (!ctx)
         sk_die("failed to create ganesh vk context");
     return ctx;
