@@ -6,6 +6,7 @@
 #ifndef SKUTIL_H
 #define SKUTIL_H
 
+#include "include/codec/SkPngDecoder.h"
 #include "include/core/SkBitmap.h"
 #include "include/core/SkCanvas.h"
 #include "include/core/SkStream.h"
@@ -151,6 +152,18 @@ sk_dump_surface(struct sk *sk, sk_sp<SkSurface> surf, const char *filename)
 
     if (!SkPngEncoder::Encode(&writer, pixmap, SkPngEncoder::Options()))
         sk_die("failed to encode pixmap");
+}
+
+static inline sk_sp<SkImage>
+sk_load_png(struct sk *sk, const char *filename)
+{
+    std::unique_ptr<SkFILEStream> reader = SkFILEStream::Make(filename);
+    if (!reader)
+        sk_die("failed to open %s", filename);
+
+    std::unique_ptr<SkCodec> codec = SkPngDecoder::Decode(std::move(reader), NULL);
+
+    return std::get<0>(codec->getImage());
 }
 
 #endif /* SKUTIL_H */
