@@ -56,6 +56,7 @@ tests = [
   'canvas-raster',
   'canvas-svg',
   'drawable',
+  'image-ganesh-vk',
   'image-raster',
 ]
 
